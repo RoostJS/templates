@@ -1,0 +1,80 @@
+version: "3.7"
+services:
+  nginx:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - {{Slug}}
+
+  api.{{Slug}}:
+    image: node:13
+    volumes:
+      - ${API_PATH}:/home/node/app:cached
+    working_dir: /home/node/app
+    expose:
+      - ${API_PORT}
+    depends_on:
+      - data.{{Slug}}
+    container_name: ${API_HOST}
+    environment:
+      - VIRTUAL_HOST=${API_HOST}
+    env_file:
+      - .env
+    networks:
+      - {{Slug}}
+    command: ["npm", "run", "start:dev"]
+
+  app.{{Slug}}:
+    image: node:13
+    volumes:
+      - ${APP_PATH}:/home/node/app:cached
+    working_dir: /home/node/app
+    expose:
+      - ${APP_PORT}
+    depends_on:
+      - api.{{Slug}}
+    container_name: ${APP_HOST}
+    environment:
+      - VIRTUAL_HOST=${APP_HOST}
+      - VIRTUAL_PORT=${APP_PORT}
+      - VUE_APP_API_HOST=${API_HOST}
+    networks:
+      - {{Slug}}
+    command: ["npm", "run", "serve"]
+
+  data.{{Slug}}:
+    image: node:13
+    volumes:
+      - ${DATA_PATH}:/home/node/app:cached
+    working_dir: /home/node/app
+    expose:
+      - ${DATA_PORT}
+    depends_on:
+      - postgres
+    container_name: ${DATA_HOST}
+    env_file:
+      - .env
+    networks:
+      - {{Slug}}
+    command: ["npm", "run", "start:dev"]
+
+  postgres:
+    image: postgres:11-alpine
+    env_file:
+      - .env
+    container_name: ${POSTGRES_HOST}
+    ports:
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    networks:
+      - {{Slug}}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data:cached
+
+volumes:
+  postgres-data:
+
+networks:
+  {{Slug}}:
