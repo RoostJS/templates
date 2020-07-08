@@ -1,8 +1,8 @@
 export const userMock = {
   id: 'someid',
-  firstName: 'someFirstName',
-  lastName: 'someLastName',
+  firstName: 'Test',
+  lastName: 'RoostJS',
   password: 'somepassword',
   phone: '123-456-7890',
-  email: 'test@email.com',
+  email: 'test@roostjs.com',
 };
