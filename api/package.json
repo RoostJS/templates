@@ -1,5 +1,5 @@
 {
-  "name": "api",
+  "name": "api.{{Slug}}",
   "version": "0.0.1",
   "description": "",
   "author": "",
