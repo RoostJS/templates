@@ -74,7 +74,7 @@ services:
       - {{Slug}}-data:/var/lib/postgresql/data:cached
 
 volumes:
-  thrubit-data:
+  {{Slug}}-data:
 
 networks:
   {{Slug}}:
