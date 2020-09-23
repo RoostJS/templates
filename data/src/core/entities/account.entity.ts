@@ -12,13 +12,6 @@ export class Account {
   })
   name: string;
 
-  @Column({
-    type: 'simple-enum',
-    enum: ['l1', 'l2', 'l3'],
-    default: 'l1',
-  })
-  type: string;
-
   @OneToMany(
     type => User,
     user => user.account,
@@ -29,6 +22,5 @@ export class Account {
 export interface IAccount {
   id: string;
   name: string;
-  type: string;
   users: IUser[];
 }

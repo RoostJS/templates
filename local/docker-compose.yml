@@ -9,15 +9,15 @@ services:
     networks:
       - {{Slug}}
 
-  api.{{Slug}}:
-    image: node:13
+  api:
+    image: node:14
     volumes:
-      - ${API_PATH}:/home/node/app:cached
-    working_dir: /home/node/app
+      - ${API_PATH}:/usr/src/app:cached
+    working_dir: /usr/src/app
     expose:
       - ${API_PORT}
     depends_on:
-      - data.{{Slug}}
+      - data
     container_name: ${API_HOST}
     environment:
       - VIRTUAL_HOST=${API_HOST}
@@ -27,15 +27,15 @@ services:
       - {{Slug}}
     command: ["npm", "run", "start:dev"]
 
-  app.{{Slug}}:
-    image: node:13
+  app:
+    image: node:14
     volumes:
-      - ${APP_PATH}:/home/node/app:cached
-    working_dir: /home/node/app
+      - ${APP_PATH}:/usr/src/app:cached
+    working_dir: /usr/src/app
     expose:
       - ${APP_PORT}
     depends_on:
-      - api.{{Slug}}
+      - api
     container_name: ${APP_HOST}
     environment:
       - VIRTUAL_HOST=${APP_HOST}
@@ -45,11 +45,11 @@ services:
       - {{Slug}}
     command: ["npm", "run", "serve"]
 
-  data.{{Slug}}:
-    image: node:13
+  data:
+    image: node:14
     volumes:
-      - ${DATA_PATH}:/home/node/app:cached
-    working_dir: /home/node/app
+      - ${DATA_PATH}:/usr/src/app:cached
+    working_dir: /usr/src/app
     expose:
       - ${DATA_PORT}
     depends_on:
@@ -71,10 +71,10 @@ services:
     networks:
       - {{Slug}}
     volumes:
-      - postgres-data:/var/lib/postgresql/data:cached
+      - {{Slug}}-data:/var/lib/postgresql/data:cached
 
 volumes:
-  postgres-data:
+  thrubit-data:
 
 networks:
   {{Slug}}:

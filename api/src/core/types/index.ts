@@ -1,6 +1,6 @@
 export interface IGeneralObj {
-  [key: string]: string;
+  [key: string]: any;
 }
 
-export * from '../../users/user.interface';
-export * from '../../accounts/account.interface';
+export * from '@/users/user.interface';
+export * from '@/accounts/account.interface';

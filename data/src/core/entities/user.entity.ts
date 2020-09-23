@@ -1,49 +1,60 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Entity, Column, PrimaryColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  ManyToOne,
+  AfterInsert,
+  AfterUpdate,
+} from 'typeorm';
 import { Account, IAccount } from './account.entity';
 
 @Entity('User')
 export class User {
   @PrimaryColumn()
-  id: string;
+  id!: string;
 
   @Column()
-  firstName: string;
+  firstName!: string;
 
   @Column({ nullable: true })
-  lastName: string;
+  lastName!: string;
 
-  @Column()
-  password: string;
-
-  @Column()
-  phone: string;
+  @Column({
+    select: false,
+  })
+  password!: string;
 
   @Column({
     unique: true,
   })
-  email: string;
+  email!: string;
 
   @Column({
     type: 'simple-enum',
-    enum: ['super', 'admin', 'user'],
+    enum: ['admin', 'owner', 'user'],
     default: 'user',
   })
-  role: string;
+  role!: string;
 
   @ManyToOne(
     type => Account,
     account => account.users,
     { eager: true },
   )
-  account: IAccount;
+  account!: IAccount | string;
+
+  @AfterInsert()
+  @AfterUpdate()
+  removePassword(): void {
+    delete this.password;
+  }
 }
 
 export interface IUser {
   id: string;
   firstName: string;
   lastName: string;
-  phone: string;
   email: string;
   role: string;
   account: IAccount;

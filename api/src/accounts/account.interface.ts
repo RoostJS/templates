@@ -1,8 +1,7 @@
-import { IUser } from '../users/user.interface';
+import { IUser } from '@/core/types';
 
 export interface IAccount {
   readonly id: string;
   readonly name: string;
-  readonly type: string;
   readonly users?: Partial<IUser>[] | string[];
 }

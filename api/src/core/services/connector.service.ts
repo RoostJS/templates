@@ -6,7 +6,7 @@ import {
 } from '@nestjs/microservices';
 
 @Injectable()
-export default class ConnectorService {
+export class ConnectorService {
   public readonly data: ClientProxy;
 
   constructor() {

@@ -1,36 +1,32 @@
 <template>
-  <v-app>
-    <template v-if="!!user.user.id">
-      <AppHeader :isMobile="isMobile" :showNav.sync="showNav" />
-      <AppNav :isMobile="isMobile" :showNav.sync="showNav" />
-    </template>
-    <v-content>
-      <router-view class="px-12 py-9"></router-view>
-    </v-content>
-  </v-app>
+  <div id="app">
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+    </div>
+    <router-view />
+  </div>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import UserStore from '@/store/UserStore';
-
-// Components
-import AppHeader from './components/ui/AppHeader.vue';
-import AppNav from './components/ui/AppNav.vue';
-
-@Component({
-  components: { AppHeader, AppNav },
-})
-export default class App extends Vue {
-  get isMobile(): boolean {
-    const mobileNames = ['md', 'sm', 'xs'];
-    return mobileNames.indexOf(this.$vuetify.breakpoint.name) > -1;
-  }
-
-  get user() {
-    return UserStore;
-  }
-
-  showNav = false;
+<style lang="scss">
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
 }
-</script>
+
+#nav {
+  padding: 30px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+}
+</style>

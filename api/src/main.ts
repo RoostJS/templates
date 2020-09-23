@@ -8,10 +8,10 @@ async function bootstrap() {
   app.setGlobalPrefix('api/v1');
   app.enableCors();
   app.use(helmet());
-  // Rate limit requests to 100 per 15 minutes
+  // Rate limit requests to 100 per 1 minutes
   app.use(
     rateLimit({
-      windowMs: 15 * 60 * 1000,
+      windowMs: 1 * 60 * 1000,
       max: 100,
     }),
   );

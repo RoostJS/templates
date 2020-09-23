@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Test, TestingModule } from '@nestjs/testing';
 import { UsersController } from './users.controller';
-import { DataServiceMock, userMock } from '../../test/mocks';
+import { DataServiceMock, userMock } from '~/mocks';
 
 describe('Users Controller', () => {
   const mock = userMock;
@@ -40,7 +40,7 @@ describe('Users Controller', () => {
   it('should update a user', async () => {
     const { ...user } = mock;
     user.email = 'another@test.com';
-    const result = await controller.updateUserById(user);
+    const result = await controller.updateUserById(user.id, user);
     expect(result.id).toEqual(mock.id);
     expect(result.email).not.toEqual(mock.email);
   });

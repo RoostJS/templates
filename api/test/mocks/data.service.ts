@@ -8,6 +8,7 @@ export const DataServiceMock = {
       return {
         create: jest.fn(async (data: any): Promise<any> => data),
         findOne: jest.fn(async (data: any): Promise<any> => mock),
+        findOneBy: jest.fn(async (data: any): Promise<any> => mock),
         updateOne: jest.fn(async (data: any): Promise<any> => data),
       };
     },

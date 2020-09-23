@@ -1,14 +1,18 @@
 <template>
-  <div class="d-flex align-center py-12">
-    <AppLogo width="10rem" height="10rem" />
+  <div class="home">
+    <img alt="Vue logo" src="../assets/logo.png" />
+    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
   </div>
 </template>
+
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import AppLogo from '../components/ui/AppLogo.vue';
+import { Component, Vue } from "vue-property-decorator";
+import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
 
 @Component({
-  components: { AppLogo },
+  components: {
+    HelloWorld
+  }
 })
 export default class Home extends Vue {}
 </script>

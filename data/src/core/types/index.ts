@@ -5,6 +5,7 @@ export interface IMessage {
 export interface IMessages {
   create: IMessage;
   findOne: IMessage;
+  findOneBy: IMessage;
   findAll: IMessage;
   updateOne: IMessage;
   deleteOne: IMessage;

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Test, TestingModule } from '@nestjs/testing';
 import { AccountsController } from './accounts.controller';
-import { DataServiceMock, accountMock } from '../../test/mocks';
+import { DataServiceMock, accountMock } from '~/mocks';
 
 describe('Accounts Controller', () => {
   const mock = accountMock;
@@ -21,7 +21,7 @@ describe('Accounts Controller', () => {
   });
 
   it('should find an account by id', async () => {
-    const result = await controller.getAccountById({ id: mock.id });
+    const result = await controller.getAccountById(mock.id);
     expect(result).toEqual(mock);
   });
 
@@ -35,7 +35,7 @@ describe('Accounts Controller', () => {
   it('should update an account', async () => {
     const { ...account } = mock;
     account.name = 'New Name';
-    const result = await controller.updateAccountById(account);
+    const result = await controller.updateAccountById(account.id, account);
     expect(result.id).toEqual(mock.id);
     expect(result.name).not.toEqual(mock.name);
   });

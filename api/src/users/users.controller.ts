@@ -1,11 +1,14 @@
 import { Controller, Get, Param, Post, Body, UseGuards } from '@nestjs/common';
+
 import { IUser } from './user.interface';
-import { RolesGuard, Role, SuperOverride } from '../core/roles';
-import { JwtAuthGuard } from '../core/auth';
-import { randomString, DataService } from '../core/utils';
+
+import { Role } from '@/core/decorators';
+import { JwtGuard, RolesGuard } from '@/core/guards';
+import { randomString } from '@/core/helpers';
+import { DataService } from '@/core/services';
 
 @Controller('users')
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtGuard, RolesGuard)
 @Role('admin')
 export class UsersController {
   constructor(private readonly data: DataService) {}
@@ -18,13 +21,12 @@ export class UsersController {
    *
    * @return {Promise<IUser>}
    */
-  @SuperOverride()
   @Post()
   async createUser(@Body() body: Partial<IUser>): Promise<IUser> {
     const { ...user } = body;
     user.id = randomString();
     if (typeof user.account === 'string') {
-      user.account = await this.data.use('account').findOne({
+      user.account = await this.data.use('account').findOneBy({
         name: user.account,
       });
     }
@@ -40,10 +42,9 @@ export class UsersController {
    *
    * @return {Promise<IUser>}
    */
-  @SuperOverride()
   @Get(':id')
-  async getUserById(@Param() params: any): Promise<IUser> {
-    return this.data.use('user').findOne({ id: params.id });
+  async getUserById(@Param('id') id: string): Promise<IUser> {
+    return this.data.use('user').findOne(id);
   }
 
   /**
@@ -56,11 +57,10 @@ export class UsersController {
    */
   @Post(':id')
   async updateUserById(
-    @Param() params: any,
+    @Param('id') id: string,
     @Body() body: Partial<IUser>,
   ): Promise<IUser> {
-    const { ...user } = body;
-    user.id = params.id;
-    return this.data.use('user').updateOne(user);
+    const data = { id, ...body };
+    return this.data.use('user').updateOne(data);
   }
 }

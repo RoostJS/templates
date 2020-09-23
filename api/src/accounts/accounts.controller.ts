@@ -1,11 +1,14 @@
 import { Controller, UseGuards, Post, Body, Get, Param } from '@nestjs/common';
-import { RolesGuard, Role, SuperOverride } from '../core/roles';
-import { JwtAuthGuard } from '../core/auth';
+
 import { IAccount } from './account.interface';
-import { randomString, DataService } from '../core/utils';
+
+import { Role } from '@/core/decorators';
+import { JwtGuard, RolesGuard } from '@/core/guards';
+import { randomString } from '@/core/helpers';
+import { DataService } from '@/core/services';
 
 @Controller('accounts')
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtGuard, RolesGuard)
 @Role('admin')
 export class AccountsController {
   constructor(private readonly data: DataService) {}
@@ -18,7 +21,6 @@ export class AccountsController {
    *
    * @return {Promise<IAccount>}
    */
-  @SuperOverride()
   @Post()
   async createAccount(@Body() body: Partial<IAccount>): Promise<IAccount> {
     const account = { ...body };
@@ -34,22 +36,26 @@ export class AccountsController {
    *
    * @return {Promise<IAccount>}
    */
-  @SuperOverride()
   @Get(':id')
-  async getAccountById(@Param() params: any): Promise<IAccount> {
-    return this.data.use('account').findOne({ id: params.id });
+  async getAccountById(@Param('id') id: string): Promise<IAccount> {
+    return this.data.use('account').findOne(id);
   }
 
   /**
    * Update account by :id
    *
    * @route POST /api/v1/accounts/:id
+   * @param {string} id
    * @param {IAccount} data
    *
    * @return {Promise<IAccount>}
    */
-  @Post()
-  updateAccountById(@Body() body: Partial<IAccount>): Promise<IAccount> {
-    return this.data.use('account').updateOne(body);
+  @Post(':id')
+  updateAccountById(
+    @Param('id') id: string,
+    @Body() body: Partial<IAccount>,
+  ): Promise<IAccount> {
+    const data = { id, ...body };
+    return this.data.use('account').updateOne(data);
   }
 }

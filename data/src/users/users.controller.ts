@@ -1,11 +1,11 @@
 import { Controller } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from '../core/entities/user.entity';
-import Messages from './messages';
-import Crud from '../core/utils/crud.controller';
 
-const CrudController: any = Crud(Messages);
+import { User } from '@/core/entities';
+import { CrudFactory } from '@/core/factories';
+
+const CrudController: any = CrudFactory('user');
 
 @Controller('users')
 export class UsersController extends CrudController {

@@ -1,8 +1,13 @@
 export const userMock = {
   id: 'someid',
-  firstName: 'Test',
-  lastName: 'RoostJS',
+  firstName: 'someFirstName',
+  lastName: 'someLastName',
+  role: 'admin',
+  email: 'test@email.com',
+  account: 'someaccount',
+};
+
+export const loginMock = {
+  email: 'test@email.com',
   password: 'somepassword',
-  phone: '123-456-7890',
-  email: 'test@roostjs.com',
 };
