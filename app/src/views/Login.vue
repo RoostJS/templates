@@ -1,3 +1,4 @@
+{{=<% %>=}}
 <template>
   <v-form v-model="valid" :lazy-validate="true" @keyup.native.enter="valid && submit($event)">
     <v-row>

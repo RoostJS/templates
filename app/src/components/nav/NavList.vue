@@ -1,3 +1,4 @@
+{{=<% %>=}}
 <template>
   <v-list nav flat v-if="list.length">
     <v-list-item-group color="primary" v-model="item">

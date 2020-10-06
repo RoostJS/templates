@@ -1,6 +1,8 @@
 <template>
-  <Logo />
-  <h1>RoostJS</h1>
+  <main>
+    <Logo />
+    <h1>RoostJS</h1>
+  </main>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';

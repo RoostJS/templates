@@ -1,3 +1,4 @@
+{{=<% %>=}}
 <template>
   <v-snackbar v-model="notify" app centered :color="notice.color" top multi-line>
     {{ notice.message }}

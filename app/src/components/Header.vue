@@ -19,7 +19,7 @@ import { Component, PropSync, Vue } from 'vue-property-decorator';
 
 import Logo from '@/components/Logo.vue';
 import { UserStore } from '@/store';
-import QuickActionButton from '@/components/QuickActionButton.vue'
+import QuickActionButton from '@/components/QuickActionButton.vue';
 
 @Component({
   components: { Logo, QuickActionButton },
