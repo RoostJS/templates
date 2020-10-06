@@ -1,32 +1,38 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
-  </div>
+  <v-app>
+    <template v-if="!!user.user.id">
+      <Notification />
+      <Header :showNav.sync="showNav" />
+      <Nav :showNav.sync="showNav" />
+    </template>
+    <v-main>
+      <router-view class="px-12 py-9"></router-view>
+    </v-main>
+  </v-app>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
 
-#nav {
-  padding: 30px;
+import { NotifyStore, UserStore } from '@/store';
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+// Components
+import Header from './components/Header.vue';
+import Nav from './components/Nav.vue';
+import Notification from './components/Notification.vue';
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+@Component({
+  components: { Header, Nav, Notification },
+})
+export default class App extends Vue {
+  get user(): typeof UserStore {
+    return UserStore;
+  }
+
+  showNav = false;
+
+  showNotice(): void {
+    NotifyStore.Alert('SOMETHING WENT WRONG!');
   }
 }
-</style>
+</script>
