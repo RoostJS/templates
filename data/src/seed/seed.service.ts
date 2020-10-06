@@ -29,8 +29,8 @@ export class SeedService implements OnApplicationBootstrap {
 
   private async seedAccount(): Promise<IAccount | void> {
     const account = {
-      id: 'thrub-admin',
-      name: 'Thrubit',
+      id: '{{Slug}}-admin',
+      name: '{{Slug}}',
     };
 
     return this.query.insert(this.accountRepo, account);
@@ -42,8 +42,8 @@ export class SeedService implements OnApplicationBootstrap {
     }
 
     const user = {
-      id: 'thrubit-admin',
-      firstName: 'Thrubit',
+      id: '{{Slug}}-admin',
+      firstName: '{{Slug}}',
       lastName: 'Admin',
       password: await this.string.hash(process.env.ADMIN_SECRET),
       email: process.env.ADMIN_EMAIL,
