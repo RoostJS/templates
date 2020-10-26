@@ -1,9 +1,4 @@
-import {
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-  RequestMethod,
-} from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 
@@ -13,8 +8,7 @@ import { AuthService } from './auth.service';
 import { UsersModule } from '@/users/users.module';
 
 import { CoreModule } from '@/core/core.module';
-import { jwtConstants } from '@/core/constants';
-import { HashMiddleware } from '@/core/middleware';
+import { jwtConstants } from '@/core/types';
 
 @Module({
   imports: [
@@ -31,10 +25,4 @@ import { HashMiddleware } from '@/core/middleware';
   providers: [AuthService],
   controllers: [AuthController],
 })
-export class AuthModule implements NestModule {
-  configure(consumer: MiddlewareConsumer): void {
-    consumer
-      .apply(HashMiddleware)
-      .forRoutes({ path: 'auth/login', method: RequestMethod.POST });
-  }
-}
+export class AuthModule {}

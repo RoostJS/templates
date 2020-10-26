@@ -1,18 +1,12 @@
-import { IGeneralObj } from '../types';
+import { IRole } from '@/core/types';
 
-export const jwtConstants: IGeneralObj = {
-  secret: process.env.JWT_SECRET,
-};
+export * from './accounts/account.interface'
+export * from './users/user.interface'
 
 export enum UserRoles {
   ADMIN = 'admin',
   OWNER = 'owner',
   USER = 'user',
-}
-
-export interface IRole {
-  role: string;
-  priority: number;
 }
 
 export const Roles: IRole[] = [

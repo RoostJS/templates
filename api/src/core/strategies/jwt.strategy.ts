@@ -2,8 +2,8 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { jwtConstants } from '@/core/constants';
-import { IGeneralObj, IUser } from '@/core/types';
+
+import { IGeneralObj, jwtConstants } from '@/core/types';
 import { DataService } from '@/core/services';
 
 @Injectable()
@@ -23,7 +23,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
    *
    * @returns {Promise<IGeneralObj>}
    */
-  async validate(payload: IGeneralObj): Promise<Partial<IUser>> {
+  async validate(payload: IGeneralObj): Promise<IGeneralObj> {
     try {
       const user = await this.data.use('user').findOne(payload.id);
       if (!user) {

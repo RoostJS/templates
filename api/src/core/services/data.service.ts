@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { Injectable } from '@nestjs/common';
 import { ConnectorService } from './connector.service';
+
 import { IGeneralObj } from '@/core/types';
 
 @Injectable()
@@ -32,15 +33,25 @@ export class DataService {
   }
 
   /**
+   * Find All records
+   *
+   * @param {object} query
+   *
+   * @returns {Promise<any>}
+   */
+  async find(query: any, options: any): Promise<any> {
+    return this.dataCall('find_all', { query, options });
+  }
+
+  /**
    * Find One by id
    *
-   * @param {IGeneralObj} data
+   * @param {string} id
    *
    * @returns {Promise<any>}
    */
   async findOne(id: string): Promise<any> {
-    const res = await this.dataCall('find_one', { id });
-    return res;
+    return this.dataCall('find_one', { id });
   }
 
   /**
@@ -51,8 +62,7 @@ export class DataService {
    * @returns {Promise<any>}
    */
   async findOneBy(data: IGeneralObj): Promise<any> {
-    const res = await this.dataCall('find_one_by', data);
-    return res;
+    return this.dataCall('find_one_by', data);
   }
 
   /**

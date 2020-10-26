@@ -1,7 +1,8 @@
 import { Strategy } from 'passport-local';
 import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { IUser } from '@/core/types';
+
+import { IGeneralObj } from '@/core/types';
 import { DataService } from '@/core/services';
 
 @Injectable()
@@ -16,9 +17,9 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
    * @param {string} email
    * @param {string} password
    *
-   * @returns {Promise<Partial<IUser>>}
+   * @returns {Promise<IGeneralObj>}
    */
-  async validate(email: string, password: string): Promise<Partial<IUser>> {
+  async validate(email: string, password: string): Promise<IGeneralObj> {
     const user = await this.data.use('user').findOneBy({ email, password });
     if (!user) {
       throw new UnauthorizedException();

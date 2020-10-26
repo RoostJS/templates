@@ -1,13 +1,12 @@
 import { Module } from '@nestjs/common';
 
-import { MeController } from './me.controller';
-import { MeService } from './me.service';
-
+// Core
 import { CoreModule } from '@/core/core.module';
+
+import { MeController } from './me.controller';
 
 @Module({
   imports: [CoreModule],
   controllers: [MeController],
-  providers: [MeService],
 })
 export class MeModule {}
