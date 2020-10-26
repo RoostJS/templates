@@ -8,9 +8,11 @@ import {
   UseGuards,
 } from '@nestjs/common';
 
+// Core
 import { JwtGuard } from '@/core/guards';
-import { IUser } from '@/core/types';
 import { DataService } from '@/core/services';
+
+import { IUser } from '@/types';
 
 @UseGuards(JwtGuard)
 @Controller('me')

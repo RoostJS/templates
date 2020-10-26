@@ -2,8 +2,11 @@ import { Controller } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Account } from '@/core/entities';
+// Core
 import { CrudFactory } from '@/core/factories';
+
+// Entity
+import { Account } from './account.entity';
 
 const CrudController = CrudFactory('account');
 

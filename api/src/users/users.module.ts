@@ -8,19 +8,9 @@ import {
 import { UsersController } from './users.controller';
 
 import { CoreModule } from '@/core/core.module';
-import { HashMiddleware } from '@/core/middleware';
 
 @Module({
   imports: [CoreModule],
   controllers: [UsersController],
 })
-export class UsersModule implements NestModule {
-  configure(consumer: MiddlewareConsumer): void {
-    consumer
-      .apply(HashMiddleware)
-      .forRoutes(
-        { path: 'users', method: RequestMethod.POST },
-        { path: 'users/*', method: RequestMethod.POST },
-      );
-  }
-}
+export class UsersModule implements NestModule {}

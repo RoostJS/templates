@@ -52,8 +52,7 @@ export function CrudControllerFactory(messages: IMessages): any {
      */
     @MessagePattern(messages.findOne)
     async findOne(data: { id: string }): Promise<any> {
-      const res = await this.query.findOne(this.repo, data.id);
-      return res;
+      return this.query.findOne(this.repo, data.id);
     }
 
     /**
@@ -76,8 +75,8 @@ export function CrudControllerFactory(messages: IMessages): any {
      * @return {Promise<any>}
      */
     @MessagePattern(messages.findAll)
-    async findAll(filter?: IGeneral): Promise<any> {
-      return this.query.findAll(this.repo, filter);
+    async findAll(data: { query?: any; options?: any }): Promise<any> {
+      return this.query.findAll(this.repo, data);
     }
 
     /**

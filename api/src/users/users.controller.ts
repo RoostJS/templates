@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Post, Body, UseGuards } from '@nestjs/common';
 
-import { IUser } from './user.interface';
+import { INewUser, IUser } from '@/types';
 
 import { Role } from '@/core/decorators';
 import { JwtGuard, RolesGuard } from '@/core/guards';
@@ -22,9 +22,8 @@ export class UsersController {
    * @return {Promise<IUser>}
    */
   @Post()
-  async createUser(@Body() body: Partial<IUser>): Promise<IUser> {
+  async createUser(@Body() body: INewUser): Promise<IUser> {
     const { ...user } = body;
-    user.id = randomString();
     if (typeof user.account === 'string') {
       user.account = await this.data.use('account').findOneBy({
         name: user.account,

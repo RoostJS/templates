@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
-import { IGeneralObj, IUser } from '@/core/types';
+import { IGeneralObj } from '@/core/types';
 
 @Injectable()
 export class AuthService {
@@ -11,11 +11,11 @@ export class AuthService {
    * Login User
    * Creates a JWT from the provided User object
    *
-   * @param {Partial<IUser>} user
+   * @param {Object} user
    *
    * @returns {Promise<IGeneralObj>}
    */
-  async login(user: Partial<IUser>): Promise<IGeneralObj> {
+  async login(user: {id: string, email: string, [key: string]: any}): Promise<IGeneralObj> {
     return {
       token: this.jwt.sign({
         id: user.id,
