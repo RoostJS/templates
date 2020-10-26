@@ -23,16 +23,29 @@ export class QueryService {
 
   /**
    * Find all records
+   *
+   * @param {Repository<any>} repo
+   * @param {IGeneral} data { limit: number } | null
    */
-  async findAll(repo: Repository<any>, data?: IGeneral): Promise<any> {
-    return repo.find(data);
+  async findAll(
+    repo: Repository<any>,
+    data?: { query?: any; options?: any },
+  ): Promise<any> {
+    // Convert data to TypeORM options
+    const options = {
+      where: data.query,
+    };
+    if (data.options?.limit) {
+      options['take'] = data.options.limit;
+    }
+    return repo.find(options);
   }
 
   /**
    * Update one record
    */
   async updateOne(repo: Repository<any>, data: IGeneral): Promise<any> {
-    return repo.save(data);
+    return this.insert(repo, data);
   }
 
   /**
