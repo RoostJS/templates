@@ -1,3 +1,4 @@
+{{=<% %>=}}
 <template>
   <fragment v-if="hasRole">
     <slot></slot>
@@ -6,7 +7,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { Fragment } from 'vue-fragment';
-import { UserStore } from '@/store';
+import { AuthStore } from '../store';
 
 @Component({
   components: { Fragment },
@@ -17,7 +18,7 @@ export default class RoleGuard extends Vue {
   private hasRole = false;
 
   async mounted(): Promise<void> {
-    this.hasRole = await UserStore.roleCheck(this.role);
+    this.hasRole = await AuthStore.roleCheck(this.role);
   }
 }
 </script>

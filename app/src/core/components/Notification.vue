@@ -1,15 +1,15 @@
 {{=<% %>=}}
 <template>
   <v-snackbar v-model="notify" app centered :color="notice.color" top multi-line>
-    {{ notice.message }}
+    <h2>{{ notice.message }}</h2>
     <template v-slot:action="{ attrs }">
-      <v-btn text v-bind="attrs" @click="notify = false">Close</v-btn>
+      <v-btn text v-bind="attrs" @click="notify = false"><v-icon large>mdi-close</v-icon></v-btn>
     </template>
   </v-snackbar>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { INotice, NotifyStore } from '@/store';
+import { INotice, NotifyStore } from '../store';
 
 @Component({})
 export default class Notification extends Vue {

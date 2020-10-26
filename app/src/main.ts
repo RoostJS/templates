@@ -1,12 +1,15 @@
-// import './plugins/class-component-hooks';
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
-import store from './store/store';
+import store from './core/store/store';
+
+// Global Styles
+import './app.scss';
+
 
 // Plugins
 import vuetify from './plugins/vuetify';
-import './plugins/api-client';
+import './core/plugins/api-client';
 
 Vue.config.productionTip = false;
 

@@ -1,3 +1,4 @@
+{{=<% %>=}}
 <template>
   <v-toolbar-items v-if="toolbar">
     <img :src="imageSrc" :width="size" :height="size" />
@@ -15,7 +16,7 @@ export default class Logo extends Vue {
    *
    * @var {string}
    */
-  private imageSrc = require('@/assets/roost-logo.svg');
+  @Prop() src!: string;
 
   /**
    * Size Prop
@@ -31,5 +32,17 @@ export default class Logo extends Vue {
    * @var {boolean}
    */
   @Prop({ type: Boolean, default: false }) toolbar!: boolean;
+
+  /**
+   * Color Prop
+   * @note Can only be one of "accent" or "primary"
+   *
+   * @var {string} color accent | primary
+   */
+  @Prop({ default: 'accent' }) color!: 'accent' | 'primary';
+
+  private get imageSrc(): any {
+    return require(`@/assets/${this.src}`);
+  }
 }
 </script>

@@ -1,3 +1,4 @@
+{{=<% %>=}}
 <template>
   <v-container>
     <h1>User Profile</h1>
