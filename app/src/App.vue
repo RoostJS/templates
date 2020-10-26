@@ -1,7 +1,8 @@
+{{=<% %>=}}
 <template>
   <v-app>
+    <Notification />
     <template v-if="!!user.user.id">
-      <Notification />
       <Header :showNav.sync="showNav" />
       <Nav :showNav.sync="showNav" />
     </template>
@@ -14,25 +15,27 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
-import { NotifyStore, UserStore } from '@/store';
+// Core
+import { AuthStore } from '@/core/store';
+import Notification from '@/core/components/Notification.vue';
 
 // Components
 import Header from './components/Header.vue';
 import Nav from './components/Nav.vue';
-import Notification from './components/Notification.vue';
 
 @Component({
   components: { Header, Nav, Notification },
 })
 export default class App extends Vue {
-  get user(): typeof UserStore {
-    return UserStore;
+  get isMobile(): boolean {
+    const mobileNames = ['md', 'sm', 'xs'];
+    return mobileNames.indexOf(this.$vuetify.breakpoint.name) > -1;
+  }
+
+  get isLoggedIn(): boolean {
+    return AuthStore.isLoggedIn;
   }
 
   showNav = false;
-
-  showNotice(): void {
-    NotifyStore.Alert('SOMETHING WENT WRONG!');
-  }
 }
 </script>

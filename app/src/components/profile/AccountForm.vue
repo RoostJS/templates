@@ -1,3 +1,4 @@
+{{=<% %>=}}
 <template>
   <v-form v-model="valid" :lazy-validation="true">
     <v-container fluid>
@@ -22,14 +23,14 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { IAccount, AccountStore } from '@/store';
+import { IAccount, AccountStore } from '@/core/store';
 
 @Component({})
 export default class AccountForm extends Vue {
   valid = true;
 
   get account(): Partial<IAccount> {
-    return AccountStore.account;
+    return AccountStore.record;
   }
 
   async submit(): Promise<void> {

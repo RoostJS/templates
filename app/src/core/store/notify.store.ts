@@ -1,6 +1,6 @@
 // src/store/NotifyStore.ts
 import { getModule, Module, Mutation, VuexModule } from 'vuex-module-decorators';
-import store from '@/store/store';
+import store from './store';
 
 /**
  * Notice Interface
@@ -9,6 +9,16 @@ export interface INotice {
   message: string;
   color: string;
   visible: boolean;
+}
+
+/**
+ * Notify Store Interface
+ */
+export interface INotify {
+  Error: (message: string) => void;
+  Alert: (message: string) => void;
+  Info: (message: string) => void;
+  Success: (message: string) => void;
 }
 
 /**

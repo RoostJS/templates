@@ -1,3 +1,4 @@
+{{=<% %>=}}
 <template>
   <v-form v-model="valid" :lazy-validation="true">
     <v-container fluid>
@@ -33,19 +34,19 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { IUser, UserStore } from '@/store';
-import RoleGuard from '@/components/RoleGuard.vue';
+import { IUser, UserStore } from '@/core/store';
+import RoleGuard from '@/core/components/RoleGuard.vue';
 
 @Component({ components: { RoleGuard } })
 export default class UserForm extends Vue {
-  get user(): Partial<IUser> {
-    return UserStore.user;
+  get user(): IUser {
+    return UserStore.record;
   }
 
   valid = true;
 
   async submit(): Promise<void> {
-    await UserStore.updateUser(this.user).catch(err => console.error(err));
+    await UserStore.update(this.user).catch(err => console.error(err));
   }
 }
 </script>

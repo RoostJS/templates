@@ -1,24 +1,26 @@
-# app
+# {{Slug}} Application
 
-## Project setup
-```
-npm install
-```
+## Description
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+This is the {{Slug}} Application. It is built with Typescript and Vue using the Vuetify UI Library.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+## Quick Start
 
-### Lints and fixes files
-```
-npm run lint
-```
+[See `Local` README]()
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## Documentation
+
+### {{Slug}} Docs
+
+- []()
+
+### 3rd Party Docs
+
+- [Vue](https://vuejs.org/)
+- [Vuetify](https://vuetifyjs.com/en/)
+- [Vue Router](https://router.vuejs.org/)
+- [Vuex](https://vuex.vuejs.org/)
+- [Vue Property Decorator](https://github.com/kaorun343/vue-property-decorator)
+- [Vuex Module Decorators](https://championswimmer.in/vuex-module-decorators/)
+- [Material Design Icons](https://materialdesignicons.com/)
+- [MDI cheatsheet](https://cdn.materialdesignicons.com/5.4.55/)

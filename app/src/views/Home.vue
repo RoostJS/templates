@@ -1,15 +1,20 @@
+{{=<% %>=}}
 <template>
   <main>
-    <Logo />
+    <Logo src="roost-logo.svg" />
     <h1>RoostJS</h1>
+    <ColorSwatch />
   </main>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import Logo from '@/components/Logo.vue';
+
+// Core Components
+import Logo from '@/core/components/Logo.vue';
+import ColorSwatch from '@/core/components/ColorSwatch.vue';
 
 @Component({
-  components: { Logo },
+  components: { ColorSwatch, Logo },
 })
 export default class Home extends Vue {}
 </script>

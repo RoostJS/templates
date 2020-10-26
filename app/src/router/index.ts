@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
-import { UserStore } from '@/store';
+import { AuthStore } from '@/core/store';
 import Home from '@/views/Home.vue';
 
 Vue.use(VueRouter);
@@ -61,10 +61,10 @@ const router = new VueRouter({
 
 // Requires Auth Navigation Guard
 router.beforeEach((to, from, next) => {
-  if (to.meta?.requiresAuth && !UserStore.user.id) {
+  if (to.meta?.requiresAuth && !AuthStore.isLoggedIn) {
     next({ name: 'Login', query: { redirect: to.fullPath } });
-  } else if (to.name === 'Login' && UserStore.user.id) {
-    UserStore.LOGOUT();
+  } else if (to.name === 'Login' && AuthStore.isLoggedIn) {
+    AuthStore.Logout();
     next();
   } else {
     next();
@@ -78,15 +78,8 @@ router.beforeEach(async (to, from, next) => {
   if (!to.meta || !to.meta.requiresRole) {
     next();
   }
-
-  // User is logged in but has no role (should never get here)
-  else if (!UserStore.user.role) {
-    UserStore.LOGOUT();
-    next({ name: 'Login', query: { redirect: to.fullPath } });
-  }
-
   // Role required, check access level
-  else if (await UserStore.roleCheck(to.meta.requiresRole)) {
+  else if (await AuthStore.roleCheck(to.meta.requiresRole)) {
     next();
   }
 

@@ -1,5 +1,6 @@
+{{=<% %>=}}
 <template>
-  <v-app-bar v-if="!!user.user.id" app clipped-left>
+  <v-app-bar v-if="isLoggedIn" app clipped-left>
     <v-app-bar-nav-icon
       v-if="$vuetify.breakpoint.mobile"
       @click.stop="showDrawer = !showDrawer"
@@ -17,9 +18,10 @@
 <script lang="ts">
 import { Component, PropSync, Vue } from 'vue-property-decorator';
 
-import Logo from '@/components/Logo.vue';
-import { UserStore } from '@/store';
-import QuickActionButton from '@/components/QuickActionButton.vue';
+// Core modules
+import { AuthStore, UserStore } from '@/core/store';
+import Logo from '@/core/components/Logo.vue';
+import QuickActionButton from '@/core/components/QuickActionButton.vue';
 
 @Component({
   components: { Logo, QuickActionButton },
@@ -27,8 +29,8 @@ import QuickActionButton from '@/components/QuickActionButton.vue';
 export default class Header extends Vue {
   @PropSync('showNav', { type: Boolean }) showDrawer!: boolean;
 
-  get user(): typeof UserStore {
-    return UserStore;
+  get isLoggedIn(): boolean {
+    return AuthStore.isLoggedIn;
   }
 }
 </script>

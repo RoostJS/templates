@@ -1,3 +1,4 @@
+{{=<% %>=}}
 <template>
   <v-navigation-drawer
     class="sidebar-nav"
@@ -24,8 +25,11 @@
 import 'reflect-metadata';
 import { Component, PropSync, Vue } from 'vue-property-decorator';
 
-import { UserStore } from '@/store';
-import QuickActionButton from '@/components/QuickActionButton.vue';
+// Core
+import { UserStore } from '@/core/store';
+import QuickActionButton from '@/core/components/QuickActionButton.vue';
+
+// Components
 import NavList, { INavItem } from '@/components/nav/NavList.vue';
 
 @Component({

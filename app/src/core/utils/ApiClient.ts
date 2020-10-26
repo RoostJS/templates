@@ -1,27 +1,27 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios';
 import { getFromLocal } from './LocalStorage';
-import { IUser } from '@/store';
 
 interface IAPIClient {
   config: AxiosRequestConfig;
-  user: IUser;
+  user: any;
   client: AxiosInstance;
 }
 
 class ApiClient {
   config!: AxiosRequestConfig;
-  user!: IUser;
+  user!: any;
   client!: AxiosInstance;
 
-  constructor() {
-    this.user = (getFromLocal('User') as IUser) || {};
-    this.config = this.getConfig();
+  constructor(apiPrefix: string = 'api', apiVersion: string = 'v1') {
+    this.user = getFromLocal('User') || {};
+    this.config = this.getConfig(apiPrefix, apiVersion);
     this.client = this.newClient();
   }
 
-  private getConfig(): AxiosRequestConfig {
+  private getConfig(apiPrefix: string, apiVersion: string): AxiosRequestConfig {
+    const host = process.env.VUE_APP_API_HOST || 'localhost';
     const config: AxiosRequestConfig = {
-      baseURL: `//${process.env.VUE_APP_API_HOST}/`,
+      baseURL: `//${host}/${apiPrefix}/${apiVersion}`,
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
       },
