@@ -1,7 +1,7 @@
 {{=<% %>=}}
 <template>
-  <main>
-    <Logo src="roost-logo.svg" />
+  <main align="center">
+    <Logo src="roost-logo.svg" size="25%" class="mx-auto" />
     <h1>RoostJS</h1>
     <ColorSwatch />
   </main>

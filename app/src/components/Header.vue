@@ -7,12 +7,12 @@
     ></v-app-bar-nav-icon>
     <v-toolbar-title>
       <router-link to="/">
-        <Logo v-if="$vuetify.breakpoint.mobile" toolbar size="50%" />
-        <Logo v-else toolbar size="25%" />
+        <Logo src="roost-logo.svg" v-if="$vuetify.breakpoint.mobile" toolbar size="16%" />
+        <Logo v-else src="roost-logo.svg" toolbar size="8%" />
       </router-link>
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    <QuickActionButton v-if="!$vuetify.breakpoint.mobile" />
+    <QuickActionButton v-if="!$vuetify.breakpoint.mobile" buttonText="Click Here" />
   </v-app-bar>
 </template>
 <script lang="ts">

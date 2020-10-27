@@ -1,7 +1,6 @@
 {{=<% %>=}}
 <template>
   <v-navigation-drawer
-    class="sidebar-nav"
     v-model="showDrawer"
     app
     clipped
@@ -11,7 +10,11 @@
     width="12em"
   >
     <template v-slot:prepend>
-      <QuickActionButton v-show="$vuetify.breakpoint.mobile" />
+      <v-list-item v-show="$vuetify.breakpoint.mobile">
+        <v-list-item-content>
+          <QuickActionButton :outlined="false" buttonText="Click Here" />
+        </v-list-item-content>
+      </v-list-item>
     </template>
     <template v-slot:default>
       <NavList :list="MainNav" />
@@ -56,7 +59,7 @@ export default class Nav extends Vue {
       title: 'Home',
       route: '/',
       guard: false,
-      icon: 'mdi-console-line',
+      icon: 'mdi-home',
     },
   ];
   BottomNav: INavItem[] = [
