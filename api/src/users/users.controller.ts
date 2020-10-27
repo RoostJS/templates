@@ -4,7 +4,6 @@ import { INewUser, IUser } from '@/types';
 
 import { Role } from '@/core/decorators';
 import { JwtGuard, RolesGuard } from '@/core/guards';
-import { randomString } from '@/core/helpers';
 import { DataService } from '@/core/services';
 
 @Controller('users')

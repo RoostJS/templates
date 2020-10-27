@@ -1,6 +1,5 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { LocalStrategy } from '@/core/strategies';
-import { IUser } from '@/core/types';
 
 @Injectable()
 export class LocalGuard implements CanActivate {
@@ -16,7 +15,7 @@ export class LocalGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const { email, password } = request.body;
-    const user: Partial<IUser> = await this.strategy.validate(email, password);
+    const user = await this.strategy.validate(email, password);
     if (!user) {
       return false;
     }

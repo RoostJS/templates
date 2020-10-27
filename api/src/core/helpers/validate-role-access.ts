@@ -1,4 +1,5 @@
-import { UserRoles, Roles, IRole } from '@/core/constants';
+import { IRole } from '@/core/types';
+import { UserRoles, Roles } from '@/types';
 
 /**
  * Validate access based on provided role
