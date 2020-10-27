@@ -12,7 +12,7 @@ class ApiClient {
   user!: any;
   client!: AxiosInstance;
 
-  constructor(apiPrefix: string = 'api', apiVersion: string = 'v1') {
+  constructor(apiPrefix = 'api', apiVersion = 'v1') {
     this.user = getFromLocal('User') || {};
     this.config = this.getConfig(apiPrefix, apiVersion);
     this.client = this.newClient();

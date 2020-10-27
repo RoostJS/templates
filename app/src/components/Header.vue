@@ -19,7 +19,7 @@
 import { Component, PropSync, Vue } from 'vue-property-decorator';
 
 // Core modules
-import { AuthStore, UserStore } from '@/core/store';
+import { AuthStore } from '@/core/store';
 import Logo from '@/core/components/Logo.vue';
 import QuickActionButton from '@/core/components/QuickActionButton.vue';
 

@@ -3,7 +3,7 @@
   <v-container fluid class="d-flex align-stretch login-container" style="height: 100%">
     <v-row no-gutters>
       <v-col cols="12" lg="4" class="d-flex align-center justify-center black">
-        <LoginForm contactHref="/" dark logo="logo-white.svg" />
+        <LoginForm contactHref="/" dark logo="roost-logo.svg" />
       </v-col>
       <v-col cols="8" class="d-none d-lg-flex align-center justify-center primary white--text">
         <div class="d-lg-flex flex-lg-column">

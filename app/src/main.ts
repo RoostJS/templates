@@ -6,7 +6,6 @@ import store from './core/store/store';
 // Global Styles
 import './app.scss';
 
-
 // Plugins
 import vuetify from './plugins/vuetify';
 import './core/plugins/api-client';

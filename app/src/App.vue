@@ -2,7 +2,7 @@
 <template>
   <v-app>
     <Notification />
-    <template v-if="!!user.user.id">
+    <template v-if="isLoggedIn">
       <Header :showNav.sync="showNav" />
       <Nav :showNav.sync="showNav" />
     </template>

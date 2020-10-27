@@ -5,7 +5,8 @@ import { Repository } from 'typeorm';
 
 // Core
 import { QueryService } from '@/core/services';
-import { Account, IAccount, IUser, User } from '@/entities';
+import { Account, IAccount } from '@/accounts/account.entity';
+import { IUser, User } from '@/users/user.entity';
 
 @Injectable()
 export class SeedService implements OnApplicationBootstrap {

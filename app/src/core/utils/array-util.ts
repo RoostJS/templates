@@ -14,7 +14,7 @@ export function searchArray(
   key: string,
   value: any
 ): { index: number; value: any } | undefined {
-  const index: number = haystack.findIndex((x) => x[key] === value);
+  const index: number = haystack.findIndex(x => x[key] === value);
   if (index < 0) return undefined;
   return { index, value: haystack[index] };
 }

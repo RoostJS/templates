@@ -3,7 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 // Core
 import { CoreModule } from '@/core/core.module';
-import { Account, User } from '@/entities';
+import { Account } from '@/accounts/account.entity';
+import { User } from '@/users/user.entity';
 
 import { SeedService } from './seed.service';
 

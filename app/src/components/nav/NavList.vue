@@ -18,7 +18,7 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import RoleGuard from '@/components/RoleGuard.vue';
+import RoleGuard from '@/core/components/RoleGuard.vue';
 
 export interface INavItem {
   title: string;

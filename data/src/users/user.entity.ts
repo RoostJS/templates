@@ -12,7 +12,7 @@ import {
 // Core
 import { StringService } from '@/core/services';
 import { Default } from '@/core/entities/default.entity';
-import { Account, IAccount } from '@/entities';
+import { Account, IAccount } from '@/accounts/account.entity';
 
 
 import { Roles } from '@/types';

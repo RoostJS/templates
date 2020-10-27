@@ -11,7 +11,7 @@ export class DbService implements TypeOrmOptionsFactory {
       password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
       port: +process.env.POSTGRES_PORT,
-      entities: [process.cwd() + '/src/*/*.entity{.ts,.js}'],
+      entities: ['dist/**/*.entity{.ts,.js}'],
       synchronize: true,
     };
   }

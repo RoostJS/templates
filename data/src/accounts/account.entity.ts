@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Entity, Column, OneToMany } from 'typeorm';
+
+// Core
 import { Default } from '@/core/entities/default.entity';
-import { User, IUser } from '@/entities';
+import { User, IUser } from '@/users/user.entity';
 
 @Entity('Account')
 export class Account extends Default {
@@ -21,7 +23,6 @@ export interface IAccount {
   id: string;
   name: string;
   users: IUser[];
-  jobs?: IJob[];
 }
 
 export interface INewAccount {

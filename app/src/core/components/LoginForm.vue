@@ -20,7 +20,7 @@
       color="primary"
       label="Email Address"
       v-model="user.email"
-      :rules="[(v) => !!v || 'Required']"
+      :rules="[v => !!v || 'Required']"
       require
     ></v-text-field>
     <v-text-field
@@ -30,7 +30,7 @@
       v-model="user.password"
       :append-icon="showPass ? 'mdi-eye' : 'mdi-eye-off'"
       :type="showPass ? 'text' : 'password'"
-      :rules="[(v) => !!v || 'Required']"
+      :rules="[v => !!v || 'Required']"
       require
       @click:append="showPass = !showPass"
     ></v-text-field>
@@ -65,7 +65,7 @@ export default class LoginForm extends Vue {
       }
 
       const redirect = (this.$route.query.redirect as string) || '/';
-      this.$router.replace(redirect).catch((failure) => {
+      this.$router.replace(redirect).catch(failure => {
         if (VueRouter.isNavigationFailure(failure)) {
           NotifyStore.Error('Navigation Failed');
         }
