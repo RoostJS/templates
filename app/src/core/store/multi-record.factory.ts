@@ -145,7 +145,7 @@ export function MultiStoreFactory<IRecord, INewRecord>(
      * @returns {Promise<IRecord>}
      */
     @Action({ commit: 'ADD_RECORD', rawError: true })
-    async add(record: INewRecord): Promise<IRecord> {
+    async add(record: INewRecord): Promise<IRecord | void> {
       try {
         const { data } = await client.post(options.url, record);
         return data;
@@ -162,7 +162,7 @@ export function MultiStoreFactory<IRecord, INewRecord>(
      * @returns {Promise<IRecord>}
      */
     @Action({ commit: 'ADD_RECORD', rawError: true })
-    async update(record: any): Promise<IRecord> {
+    async update(record: any): Promise<IRecord | void> {
       try {
         let { data } = await client.post(`${options.url}/${record.id}`, record);
         data = { ...record, ...data };
@@ -180,7 +180,7 @@ export function MultiStoreFactory<IRecord, INewRecord>(
      * @returns {Promise<IRecord>}
      */
     @Action({ commit: 'ADD_RECORD', rawError: true })
-    async get(id: string): Promise<IRecord> {
+    async get(id: string): Promise<IRecord | void> {
       try {
         const { data } = await client.get(`${options.url}/${id}`);
         return data;
@@ -195,7 +195,7 @@ export function MultiStoreFactory<IRecord, INewRecord>(
      * @returns {Promise<IRecord[]>}
      */
     @Action({ commit: 'ADD_RECORDS', rawError: true })
-    async refresh(): Promise<IRecord[]> {
+    async refresh(): Promise<IRecord[] | void> {
       try {
         const { data } = await client.get(`${options.url}`);
         return data;
