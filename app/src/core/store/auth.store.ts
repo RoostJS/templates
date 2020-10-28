@@ -48,14 +48,17 @@ class AuthStoreClass extends VuexModule {
    * @returns {Promise<boolean>}
    */
   @Action({ rawError: true })
-  async login(user: { email: string; password: string }): Promise<boolean> {
+  async login(
+    userStore: ISingleRecordStore,
+    user: { email: string; password: string }
+  ): Promise<boolean> {
     try {
       const authResp: AxiosResponse = await client.post('auth/login', user);
       client.defaults.headers.common.Authorization = `Bearer ${authResp.data.token}`;
 
       const meResp: AxiosResponse = await client.get('me');
       const me = { ...meResp.data, token: authResp.data.token };
-      UserStore.ADD_RECORD(me);
+      userStore.ADD_RECORD(me);
 
       return true;
     } catch (error) {

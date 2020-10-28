@@ -46,12 +46,8 @@ export function MultiStoreFactory<IRecord, INewRecord>(
   options: IMultiRecordOptions
 ): IMultiRecordStore {
   // Sanitize Options
-  if (!options.client) {
-    options.client = new ApiClient().client;
-  }
-  if (!options.notify) {
-    options.notify = NotifyStore;
-  }
+  const client = options.client || new ApiClient().client;
+  const notify = options.notify || NotifyStore;
 
   /**
    * MultiRecordStore class
@@ -151,11 +147,10 @@ export function MultiStoreFactory<IRecord, INewRecord>(
     @Action({ commit: 'ADD_RECORD', rawError: true })
     async add(record: INewRecord): Promise<IRecord> {
       try {
-        const { data } = await options.client.post(options.url, record);
+        const { data } = await client.post(options.url, record);
         return data;
       } catch (error) {
-        if (options.notify) options.notify.Error(error.message);
-        throw error;
+        notify.Error(error.message);
       }
     }
 
@@ -169,12 +164,11 @@ export function MultiStoreFactory<IRecord, INewRecord>(
     @Action({ commit: 'ADD_RECORD', rawError: true })
     async update(record: any): Promise<IRecord> {
       try {
-        let { data } = await options.client.post(`${options.url}/${record.id}`, record);
+        let { data } = await client.post(`${options.url}/${record.id}`, record);
         data = { ...record, ...data };
         return data;
       } catch (error) {
-        if (options.notify) options.notify.Error(error.message);
-        throw error;
+        notify.Error(error.message);
       }
     }
 
@@ -188,11 +182,10 @@ export function MultiStoreFactory<IRecord, INewRecord>(
     @Action({ commit: 'ADD_RECORD', rawError: true })
     async get(id: string): Promise<IRecord> {
       try {
-        const { data } = await options.client.get(`${options.url}/${id}`);
+        const { data } = await client.get(`${options.url}/${id}`);
         return data;
       } catch (error) {
-        if (options.notify) options.notify.Error(error.message);
-        throw error;
+        notify.Error(error.message);
       }
     }
 
@@ -204,11 +197,10 @@ export function MultiStoreFactory<IRecord, INewRecord>(
     @Action({ commit: 'ADD_RECORDS', rawError: true })
     async refresh(): Promise<IRecord[]> {
       try {
-        const { data } = await options.client.get(`${options.url}`);
+        const { data } = await client.get(`${options.url}`);
         return data;
       } catch (error) {
-        if (options.notify) options.notify.Error(error.message);
-        throw error;
+        notify.Error(error.message);
       }
     }
   }

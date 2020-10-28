@@ -43,12 +43,8 @@ export function SingleRecordFactory<IRecord, INewRecord>(
   options: ISingleRecordStoreOptions
 ): ISingleRecordStore {
   // Sanitize Options
-  if (!options.client) {
-    options.client = new ApiClient().client;
-  }
-  if (!options.notify) {
-    options.notify = NotifyStore;
-  }
+  const client = options.client || new ApiClient().client;
+  const notify = options.notify || NotifyStore;
 
   /**
    * Single Record Store class
@@ -112,10 +108,10 @@ export function SingleRecordFactory<IRecord, INewRecord>(
     @Action({ commit: 'ADD_RECORD', rawError: true })
     async save(record: INewRecord): Promise<IRecord | void> {
       try {
-        const resp: AxiosResponse = await options.client.post(options.url, record);
+        const resp: AxiosResponse = await client.post(options.url, record);
         return (resp as unknown) as IRecord;
       } catch (error) {
-        if (options.notify) options.notify.Error(error.message);
+        notify.Error(error.message);
       }
     }
 
@@ -129,10 +125,10 @@ export function SingleRecordFactory<IRecord, INewRecord>(
     @Action({ commit: 'ADD_RECORD', rawError: true })
     async update(record: { id: string; [key: string]: any }): Promise<IRecord | void> {
       try {
-        const { data } = await options.client.post(`${options.url}/${record.id}`);
+        const { data } = await client.post(`${options.url}/${record.id}`);
         return data as IRecord;
       } catch (error) {
-        if (options.notify) options.notify.Error(error.message);
+        notify.Error(error.message);
       }
     }
 
@@ -146,10 +142,10 @@ export function SingleRecordFactory<IRecord, INewRecord>(
     @Action({ commit: 'ADD_RECORD', rawError: true })
     async get(id: string): Promise<IRecord | void> {
       try {
-        const { data } = await options.client.get(`${options.url}/${id}`);
+        const { data } = await client.get(`${options.url}/${id}`);
         return data as IRecord;
       } catch (error) {
-        if (options.notify) options.notify.Error(error.message);
+        notify.Error(error.message);
       }
     }
   }

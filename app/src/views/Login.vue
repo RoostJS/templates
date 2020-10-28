@@ -17,12 +17,11 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
-// Core Components
-import LoginForm from '@/core/components/LoginForm.vue';
-import ColorSwatch from '@/core/components/ColorSwatch.vue';
+// Components
+import LoginForm from '@/components/LoginForm.vue';
 
 @Component({
-  components: { ColorSwatch, LoginForm },
+  components: { LoginForm },
 })
 export default class Login extends Vue {}
 </script>

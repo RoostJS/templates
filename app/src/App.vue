@@ -20,7 +20,7 @@ import { AuthStore } from './core/store';
 import Notification from './core/components/Notification.vue';
 
 // Store
-import { UserStore } from '@/store/user.store';
+import { UserStore } from './store/user.store';
 
 // Components
 import Header from './components/Header.vue';
