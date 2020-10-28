@@ -3,7 +3,7 @@ import { AxiosInstance } from 'axios';
 
 import { ApiClient } from '../utils/ApiClient';
 import { getFromLocal, saveToLocal } from '../utils/LocalStorage';
-import { searchArray } from '../utils/array-util';
+import { searchArray } from '../utils/array.utility';
 
 import { INotify, NotifyStore } from './notify.store';
 import store from './store';

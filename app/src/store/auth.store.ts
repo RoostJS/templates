@@ -3,6 +3,7 @@ import { Action, getModule, Module, Mutation, VuexModule } from 'vuex-module-dec
 // Core
 import { ApiClient, AxiosInstance, AxiosResponse } from '@/core/utils/ApiClient';
 import { clearLocalStorage } from '@/core/utils/LocalStorage';
+import { roleCheck } from '@/core/utils/role.utility';
 import { NotifyStore } from '@/core/store';
 import store from '@/core/store/store';
 
@@ -76,15 +77,7 @@ class AuthStoreClass extends VuexModule {
    */
   @Action({ rawError: true })
   async roleCheck(role?: string | boolean): Promise<boolean> {
-    try {
-      if (!role) return true;
-      role = role as string; // typecast
-      const { data } = await client.get(`auth/role/${role}`);
-      return data.status;
-    } catch (error) {
-      NotifyStore.Error(error.message);
-      return false;
-    }
+    return roleCheck(role);
   }
 }
 

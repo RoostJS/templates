@@ -7,7 +7,7 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { Fragment } from 'vue-fragment';
-import { AuthStore } from '../store';
+import { roleCheck } from '../utils/role.utility';
 
 @Component({
   components: { Fragment },
@@ -18,7 +18,7 @@ export default class RoleGuard extends Vue {
   private hasRole = false;
 
   async mounted(): Promise<void> {
-    this.hasRole = await AuthStore.roleCheck(this.role);
+    this.hasRole = await roleCheck(this.role);
   }
 }
 </script>
