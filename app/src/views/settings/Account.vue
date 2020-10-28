@@ -8,6 +8,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
+// Components
 import AccountForm from '@/components/profile/AccountForm.vue';
 
 @Component({ components: { AccountForm } })

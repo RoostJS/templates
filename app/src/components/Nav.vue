@@ -29,8 +29,10 @@ import 'reflect-metadata';
 import { Component, PropSync, Vue } from 'vue-property-decorator';
 
 // Core
-import { UserStore } from '@/core/store';
 import QuickActionButton from '@/core/components/QuickActionButton.vue';
+
+// Store
+import { UserStore } from '@/store/user.store';
 
 // Components
 import NavList, { INavItem } from '@/components/nav/NavList.vue';

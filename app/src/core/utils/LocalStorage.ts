@@ -11,3 +11,7 @@ export function saveToLocal(key: string, data: { [key: string]: any }): void {
   localStorage.setItem(key, '{}');
   localStorage.setItem(key, JSON.stringify(data));
 }
+
+export function clearLocalStorage(): void {
+  localStorage.clear();
+}

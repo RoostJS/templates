@@ -1,9 +1,9 @@
 import { Action, getModule, Module, Mutation, VuexModule } from 'vuex-module-decorators';
 
 import { ApiClient, AxiosInstance, AxiosResponse } from '../utils/ApiClient';
-import { NotifyStore } from './notify.store';
-import { AccountStore } from './account.store';
-import { UserStore } from './user.store';
+import { clearLocalStorage } from '../utils/LocalStorage';
+
+import { ISingleRecordStore, NotifyStore } from './';
 import store from './store';
 
 /**
@@ -28,8 +28,8 @@ class AuthStoreClass extends VuexModule {
    *
    * @var {boolean} isLoggedIn
    */
-  get isLoggedIn(): boolean {
-    return UserStore?.data?.record?.token !== undefined;
+  isLoggedIn(userStore: ISingleRecordStore): boolean {
+    return userStore?.data?.record?.token !== undefined;
   }
 
   /**
@@ -37,8 +37,7 @@ class AuthStoreClass extends VuexModule {
    */
   @Mutation
   Logout(): void {
-    UserStore.REMOVE_RECORD();
-    AccountStore.REMOVE_RECORD();
+    clearLocalStorage();
   }
 
   /**

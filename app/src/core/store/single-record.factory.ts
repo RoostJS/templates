@@ -1,7 +1,11 @@
 import { Action, getModule, Module, Mutation, VuexModule } from 'vuex-module-decorators';
 import { AxiosInstance, AxiosResponse } from 'axios';
-import { getFromLocal, saveToLocal } from '@/core/utils/LocalStorage';
-import { INotify } from './notify.store';
+
+import { getFromLocal, saveToLocal } from '../utils/LocalStorage';
+import { ApiClient } from '../utils/ApiClient';
+
+import { INotify, NotifyStore } from './notify.store';
+import store from './store';
 
 /**
  * Single Record Store interface
@@ -22,9 +26,8 @@ export interface ISingleRecordStore {
 export interface ISingleRecordStoreOptions {
   name: string;
   url: string;
-  client: AxiosInstance;
-  notify: INotify;
-  store: any;
+  client?: AxiosInstance;
+  notify?: INotify;
 }
 
 /**
@@ -33,13 +36,20 @@ export interface ISingleRecordStoreOptions {
  *
  * @param {string} name
  * @param {string} apiURL
- * @param {Store} store
  *
  * @returns {ISingleRecordStore}
  */
 export function SingleRecordFactory<IRecord, INewRecord>(
   options: ISingleRecordStoreOptions
 ): ISingleRecordStore {
+  // Sanitize Options
+  if (!options.client) {
+    options.client = new ApiClient().client;
+  }
+  if (!options.notify) {
+    options.notify = NotifyStore;
+  }
+
   /**
    * Single Record Store class
    */
@@ -47,7 +57,7 @@ export function SingleRecordFactory<IRecord, INewRecord>(
     name: `${options.name}Store`,
     namespaced: true,
     dynamic: true,
-    store: options.store,
+    store,
   })
   class SingleRecordStore extends VuexModule {
     /**
@@ -105,7 +115,7 @@ export function SingleRecordFactory<IRecord, INewRecord>(
         const resp: AxiosResponse = await options.client.post(options.url, record);
         return (resp as unknown) as IRecord;
       } catch (error) {
-        options.notify.Error(error.message);
+        if (options.notify) options.notify.Error(error.message);
       }
     }
 
@@ -122,7 +132,7 @@ export function SingleRecordFactory<IRecord, INewRecord>(
         const { data } = await options.client.post(`${options.url}/${record.id}`);
         return data as IRecord;
       } catch (error) {
-        options.notify.Error(error.message);
+        if (options.notify) options.notify.Error(error.message);
       }
     }
 
@@ -139,7 +149,7 @@ export function SingleRecordFactory<IRecord, INewRecord>(
         const { data } = await options.client.get(`${options.url}/${id}`);
         return data as IRecord;
       } catch (error) {
-        options.notify.Error(error.message);
+        if (options.notify) options.notify.Error(error.message);
       }
     }
   }

@@ -8,7 +8,7 @@
             color="secondary"
             label="Account Name"
             v-model="account.name"
-            :rules="[v => !!v || 'Required']"
+            :rules="[(v) => !!v || 'Required']"
             required
           ></v-text-field>
         </v-col>
@@ -23,18 +23,20 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { IAccount, AccountStore } from '@/core/store';
+
+// Store
+import { IAccount, AccountStore } from '@/store/account.store';
 
 @Component({})
 export default class AccountForm extends Vue {
   valid = true;
 
-  get account(): Partial<IAccount> {
+  get account(): IAccount {
     return AccountStore.record;
   }
 
   async submit(): Promise<void> {
-    await AccountStore.update(this.account).catch(err => console.error(err));
+    await AccountStore.update(this.account).catch((err) => console.error(err));
   }
 }
 </script>

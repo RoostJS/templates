@@ -34,10 +34,11 @@
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { IUser, UserStore } from '@/core/store';
-import RoleGuard from '@/core/components/RoleGuard.vue';
 
-@Component({ components: { RoleGuard } })
+// Store
+import { IUser, UserStore } from '@/store/user.store';
+
+@Component({ components: {} })
 export default class UserForm extends Vue {
   get user(): IUser {
     return UserStore.record;
@@ -46,7 +47,7 @@ export default class UserForm extends Vue {
   valid = true;
 
   async submit(): Promise<void> {
-    await UserStore.update(this.user).catch(err => console.error(err));
+    await UserStore.update(this.user).catch((err) => console.error(err));
   }
 }
 </script>

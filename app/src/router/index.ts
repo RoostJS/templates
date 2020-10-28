@@ -1,6 +1,10 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
+
+// Core
 import { AuthStore } from '@/core/store';
+
+// Vies
 import Home from '@/views/Home.vue';
 
 Vue.use(VueRouter);

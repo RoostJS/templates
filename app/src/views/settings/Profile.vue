@@ -8,6 +8,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
+// Components
 import UserForm from '@/components/profile/UserForm.vue';
 
 @Component({ components: { UserForm } })

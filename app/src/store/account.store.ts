@@ -1,8 +1,5 @@
 // store/UserStore.ts
-import { ApiClient } from '../utils/ApiClient';
-import { ISingleRecordStoreOptions, SingleRecordFactory } from './single-record.factory';
-import { NotifyStore } from './notify.store';
-import store from './store';
+import { ISingleRecordStoreOptions, SingleRecordFactory } from '@/core/store';
 
 /**
  * Account Interface
@@ -29,9 +26,6 @@ export interface INewAccount {
 const options: ISingleRecordStoreOptions = {
   name: 'Account',
   url: 'accounts',
-  client: new ApiClient().client,
-  notify: NotifyStore,
-  store,
 };
 
 /**

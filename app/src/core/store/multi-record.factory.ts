@@ -1,8 +1,11 @@
 import { Action, getModule, Module, Mutation, VuexModule } from 'vuex-module-decorators';
 import { AxiosInstance } from 'axios';
+
 import { getFromLocal, saveToLocal } from '../utils/LocalStorage';
-import { INotify } from './notify.store';
 import { searchArray } from '../utils/array-util';
+
+import { INotify, NotifyStore } from './notify.store';
+import store from './store';
 
 /**
  * MultiRecord Store interface
@@ -25,9 +28,8 @@ export interface IMultiRecordStore {
 export interface IMultiRecordOptions {
   name: string;
   url: string;
-  client: AxiosInstance;
-  notify: INotify;
-  store: any;
+  client?: AxiosInstance;
+  notify?: INotify;
 }
 
 /**
@@ -42,6 +44,14 @@ export interface IMultiRecordOptions {
 export function MultiStoreFactory<IRecord, INewRecord>(
   options: IMultiRecordOptions
 ): IMultiRecordStore {
+  // Sanitize Options
+  if (!options.client) {
+    options.client = new ApiClient().client;
+  }
+  if (!options.notify) {
+    options.notify = NotifyStore;
+  }
+
   /**
    * MultiRecordStore class
    */
@@ -49,7 +59,7 @@ export function MultiStoreFactory<IRecord, INewRecord>(
     name: `${options.name}Store`,
     namespaced: true,
     dynamic: true,
-    store: options.store,
+    store,
   })
   class MultiRecordStore extends VuexModule {
     /**
@@ -143,7 +153,7 @@ export function MultiStoreFactory<IRecord, INewRecord>(
         const { data } = await options.client.post(options.url, record);
         return data;
       } catch (error) {
-        options.notify.Error(error.message);
+        if (options.notify) options.notify.Error(error.message);
         throw error;
       }
     }
@@ -162,7 +172,7 @@ export function MultiStoreFactory<IRecord, INewRecord>(
         data = { ...record, ...data };
         return data;
       } catch (error) {
-        options.notify.Error(error.message);
+        if (options.notify) options.notify.Error(error.message);
         throw error;
       }
     }
@@ -180,7 +190,7 @@ export function MultiStoreFactory<IRecord, INewRecord>(
         const { data } = await options.client.get(`${options.url}/${id}`);
         return data;
       } catch (error) {
-        options.notify.Error(error.message);
+        if (options.notify) options.notify.Error(error.message);
         throw error;
       }
     }
@@ -196,7 +206,7 @@ export function MultiStoreFactory<IRecord, INewRecord>(
         const { data } = await options.client.get(`${options.url}`);
         return data;
       } catch (error) {
-        options.notify.Error(error.message);
+        if (options.notify) options.notify.Error(error.message);
         throw error;
       }
     }

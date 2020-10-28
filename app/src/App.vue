@@ -16,8 +16,8 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 // Core
-import { AuthStore } from '@/core/store';
-import Notification from '@/core/components/Notification.vue';
+import { AuthStore } from './core/store';
+import Notification from './core/components/Notification.vue';
 
 // Components
 import Header from './components/Header.vue';
