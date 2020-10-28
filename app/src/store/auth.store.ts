@@ -1,10 +1,13 @@
 import { Action, getModule, Module, Mutation, VuexModule } from 'vuex-module-decorators';
 
-import { ApiClient, AxiosInstance, AxiosResponse } from '../utils/ApiClient';
-import { clearLocalStorage } from '../utils/LocalStorage';
+// Core
+import { ApiClient, AxiosInstance, AxiosResponse } from '@/core/utils/ApiClient';
+import { clearLocalStorage } from '@/core/utils/LocalStorage';
+import { NotifyStore } from '@/core/store';
+import store from '@/core/store/store';
 
-import { ISingleRecordStore, NotifyStore } from './';
-import store from './store';
+// Store
+import { UserStore } from './user.store';
 
 /**
  * API Client
@@ -28,8 +31,8 @@ class AuthStoreClass extends VuexModule {
    *
    * @var {boolean} isLoggedIn
    */
-  isLoggedIn(userStore: ISingleRecordStore): boolean {
-    return userStore?.data?.record?.token !== undefined;
+  get isLoggedIn(): boolean {
+    return UserStore?.data?.record?.token !== undefined;
   }
 
   /**
@@ -48,17 +51,14 @@ class AuthStoreClass extends VuexModule {
    * @returns {Promise<boolean>}
    */
   @Action({ rawError: true })
-  async login(
-    userStore: ISingleRecordStore,
-    user: { email: string; password: string }
-  ): Promise<boolean> {
+  async login(user: { email: string; password: string }): Promise<boolean> {
     try {
       const authResp: AxiosResponse = await client.post('auth/login', user);
       client.defaults.headers.common.Authorization = `Bearer ${authResp.data.token}`;
 
       const meResp: AxiosResponse = await client.get('me');
       const me = { ...meResp.data, token: authResp.data.token };
-      userStore.ADD_RECORD(me);
+      UserStore.ADD_RECORD(me);
 
       return true;
     } catch (error) {

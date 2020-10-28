@@ -25,7 +25,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 // Store
-import { IAccount, AccountStore } from '@/store/account.store';
+import { IAccount, AccountStore } from '@/store';
 
 @Component({})
 export default class AccountForm extends Vue {

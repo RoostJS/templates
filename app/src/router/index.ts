@@ -1,11 +1,8 @@
 import Vue from 'vue';
 import VueRouter, { RouteConfig } from 'vue-router';
 
-// Core
-import { AuthStore } from '@/core/store';
-
 // Store
-import { UserStore } from '@/store/user.store';
+import { AuthStore } from '@/store';
 
 // Views
 import Home from '@/views/Home.vue';
@@ -68,9 +65,9 @@ const router = new VueRouter({
 
 // Requires Auth Navigation Guard
 router.beforeEach((to, from, next) => {
-  if (to.meta?.requiresAuth && !AuthStore.isLoggedIn(UserStore)) {
+  if (to.meta?.requiresAuth && !AuthStore.isLoggedIn) {
     next({ name: 'Login', query: { redirect: to.fullPath } });
-  } else if (to.name === 'Login' && AuthStore.isLoggedIn(UserStore)) {
+  } else if (to.name === 'Login' && AuthStore.isLoggedIn) {
     AuthStore.Logout();
     next();
   } else {

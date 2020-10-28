@@ -44,11 +44,11 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import VueRouter from 'vue-router';
 
 // Core
-import { AuthStore, NotifyStore } from '@/core/store';
+import { NotifyStore } from '@/core/store';
 import Logo from '@/core/components/Logo.vue';
 
 // Store
-import { UserStore } from '@/store/user.store';
+import { AuthStore } from '@/store';
 
 @Component({ components: { Logo } })
 export default class LoginForm extends Vue {
@@ -63,8 +63,8 @@ export default class LoginForm extends Vue {
 
   async submit(): Promise<void> {
     try {
-      await AuthStore.login(UserStore, this.user);
-      if (!AuthStore.isLoggedIn(UserStore)) {
+      await AuthStore.login(this.user);
+      if (!AuthStore.isLoggedIn) {
         throw new Error();
       }
 

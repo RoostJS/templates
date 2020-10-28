@@ -36,7 +36,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 
 // Store
-import { IUser, UserStore } from '@/store/user.store';
+import { IUser, UserStore } from '@/store';
 
 @Component({ components: {} })
 export default class UserForm extends Vue {
