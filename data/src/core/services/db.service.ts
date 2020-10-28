@@ -1,3 +1,4 @@
+import '../utils/typeorm-fix';
 import { Injectable } from '@nestjs/common';
 import { TypeOrmOptionsFactory, TypeOrmModuleOptions } from '@nestjs/typeorm';
 
