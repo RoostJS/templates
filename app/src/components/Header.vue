@@ -23,6 +23,9 @@ import { AuthStore } from '@/core/store';
 import Logo from '@/core/components/Logo.vue';
 import QuickActionButton from '@/core/components/QuickActionButton.vue';
 
+// Store
+import { UserStore } from '@/store/user.store';
+
 @Component({
   components: { Logo, QuickActionButton },
 })
@@ -30,7 +33,7 @@ export default class Header extends Vue {
   @PropSync('showNav', { type: Boolean }) showDrawer!: boolean;
 
   get isLoggedIn(): boolean {
-    return AuthStore.isLoggedIn();
+    return AuthStore.isLoggedIn(UserStore);
   }
 }
 </script>

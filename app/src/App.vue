@@ -19,6 +19,9 @@ import { Component, Vue } from 'vue-property-decorator';
 import { AuthStore } from './core/store';
 import Notification from './core/components/Notification.vue';
 
+// Store
+import { UserStore } from '@/store/user.store';
+
 // Components
 import Header from './components/Header.vue';
 import Nav from './components/Nav.vue';
@@ -33,7 +36,7 @@ export default class App extends Vue {
   }
 
   get isLoggedIn(): boolean {
-    return AuthStore.isLoggedIn;
+    return AuthStore.isLoggedIn(UserStore);
   }
 
   showNav = false;

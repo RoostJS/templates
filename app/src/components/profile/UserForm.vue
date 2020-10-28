@@ -47,7 +47,7 @@ export default class UserForm extends Vue {
   valid = true;
 
   async submit(): Promise<void> {
-    await UserStore.update(this.user).catch((err) => console.error(err));
+    await UserStore.update(this.user).catch((err: Error) => console.error(err));
   }
 }
 </script>

@@ -36,7 +36,7 @@ export default class AccountForm extends Vue {
   }
 
   async submit(): Promise<void> {
-    await AccountStore.update(this.account).catch((err) => console.error(err));
+    await AccountStore.update(this.account).catch((err: Error) => console.error(err));
   }
 }
 </script>

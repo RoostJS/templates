@@ -9,7 +9,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 
-// Core Components
+// Core
 import Logo from '@/core/components/Logo.vue';
 import ColorSwatch from '@/core/components/ColorSwatch.vue';
 

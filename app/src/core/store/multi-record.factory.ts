@@ -1,6 +1,7 @@
 import { Action, getModule, Module, Mutation, VuexModule } from 'vuex-module-decorators';
 import { AxiosInstance } from 'axios';
 
+import { ApiClient } from '../utils/ApiClient';
 import { getFromLocal, saveToLocal } from '../utils/LocalStorage';
 import { searchArray } from '../utils/array-util';
 
